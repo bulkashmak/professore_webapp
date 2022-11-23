@@ -1,0 +1,92 @@
+{% extends "main/index.html" %}
+
+{% block title %}Профессоре – о нас{% endblock %}
+{% block description %}{{ preferences.PrPreferences.contacts_meta_desc }}{% endblock %}
+
+{% block body %}
+
+    <div class="mainframe">
+
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
+
+        {% if preferences.PrPreferences.about_us_text %}
+            <h1>О нас</h1>
+            {{ preferences.PrPreferences.about_us_text|safe }}
+        {% endif %}
+
+        <h2>Ждём вас в гости!</h2>
+
+        <span><i class="fas fa-home"></i>{{ preferences.PrPreferences.address_in_contacts }}</span><br>
+        <span><i class="fas fa-phone"></i>‎<a
+                href="tel:{{ tel1plain }}">{{ preferences.PrPreferences.tel1 }}</a>, <a
+                href="tel:{{ tel2plain }}">{{ preferences.PrPreferences.tel2 }}</a></span>
+
+        <br>
+        <span>
+            <b>Время работы:</b> {{ preferences.PrPreferences.working_time }}
+        </span>
+
+        <div class="map" id="map">
+
+        </div>
+
+
+        <script>
+            ymaps.ready(init);
+
+            function init() {
+
+                var myMap = new ymaps.Map("map", {
+                    center: [55.837453, 37.488973],
+                    zoom: 16,
+                    {#controls: ['geolocationControl']#}
+
+                });
+
+
+                var isMobile = {
+                    Android: function () {
+                        return navigator.userAgent.match(/Android/i);
+                    },
+                    BlackBerry: function () {
+                        return navigator.userAgent.match(/BlackBerry/i);
+                    },
+                    iOS: function () {
+                        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                    },
+                    Opera: function () {
+                        return navigator.userAgent.match(/Opera Mini/i);
+                    },
+                    Windows: function () {
+                        return navigator.userAgent.match(/IEMobile/i);
+                    },
+                    any: function () {
+                        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                    }
+                };
+
+                if (isMobile.any()) {
+                    myMap.behaviors.disable('scrollZoom');
+                    myMap.behaviors.disable('drag');
+                }
+
+                myMap.events.once('click', function () {
+                    myMap.behaviors
+                        .enable('scrollZoom')
+                        .enable('drag');
+                });
+
+
+                var placemark1 = new ymaps.Placemark([55.835129, 37.490754], {
+                    hintContent: 'Профессоре',
+                    iconContent: "Профессоре"
+                }, {
+                    preset: 'islands#blueStretchyIcon',
+                });
+                myMap.geoObjects.add(placemark1);
+            }
+        </script>
+    </div>
+
+{% endblock %}

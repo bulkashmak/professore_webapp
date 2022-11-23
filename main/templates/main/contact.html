@@ -1,0 +1,83 @@
+{% extends "main/index.html" %}
+
+{% block title %}Профессоре – заказать столик{% endblock %}
+{% block description %}{{ preferences.PrPreferences.booking_meta_desc }}{% endblock %}
+
+{% block body %}
+    <div class="mainframe contacts_cont">
+        <h1>Забронировать столик</h1>
+
+        <form action="{% url 'main:contact' %}" class="contacts" method="post" data-abide novalidate>
+            {% csrf_token %}
+
+            <div class="grid-x">
+                <div class="column">
+                    {% if messages %}
+                        <div class="small-center">
+                            {% for message in messages %}
+                                <span class="success">{{ message }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div data-abide-error class="alert callout" style="display: none">
+                        <span class="form-error is-visible">Пожалуйста, проверьте форму на ошибки.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-x grid-margin-x">
+
+                <div class="cell large-6">
+
+                    <label>{{ form.name.label_tag }}{{ form.name }}
+                        <span class="form-error" id="Error2">Пожалуйста, напишите ваше имя</span>
+                    </label>
+
+                    <label>
+                        {{ form.phone.label_tag }}{{ form.phone }}
+                        <span class="form-error" id="Error6">Пожалуйста, укажите номер телефона</span>
+                    </label>
+
+
+                </div>
+
+                <div class="cell large-6">
+                    <label>
+                        {{ form.guests.label_tag }}{{ form.guests }}
+                    </label>
+
+                </div>
+
+                <div class="cell large-12">
+                <label>{{ form.message.label_tag }}{{ form.message }}
+                    <span class="form-error" id="Error7">Пожалуйста, введите сообщение</span>
+                </label>
+                </div>
+
+                <div class="cell large-6">
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                    <div class="g-recaptcha" data-sitekey="6LeFjogUAAAAADZic9IL_QIEtYJ_2J06Hwpo0cC5"></div>
+                    {% if errors %}
+                        {% for error in errors %}
+                            <span class="error">{{ error|safe }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="cell large-6">
+                    <span>* обязательные для заполнения поля</span>
+                    <button class="button expanded" type="submit" value="Submit">Отправить сообщение</button>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <span class="success">{{ message }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,166 @@
+{% load static %}
+{% load thumbnail %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#212121"/>
+    <meta name="description" content="{% block description %}{% endblock %}" />
+
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+
+    <meta name="yandex-verification" content="c745f8fa8d9996b4" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/foundation.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/app.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'main/magnific/magnific-popup.css' %}"/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{% static 'main/js/vendor/foundation.min.js' %}"></script>
+    <script src="{% static 'main/magnific/magnific.js' %}"></script>
+    <script src="{% static 'main/slick/slick.min.js' %}"></script>
+
+
+</head>
+<body>
+
+<div class="background-container">
+    <div class="background-cover slick">
+
+        {% for image in backgrounds.album_fotos.all %}
+
+            <div class="slide" style="background-image: url({{ image.foto_img.url }});"></div>
+
+        {% endfor %}
+
+
+    </div>
+</div>
+
+<div class="header row expanded">
+    <div class="container">
+        <div class="grid-x grid-padding-x align-middle">
+            <div class="logo cell large-3 medium-3 small-6">
+                <a href="/"><img src="{% static 'images/logo.png' %}" alt="Профессоре" class="small-12"></a>
+            </div>
+            <div class="cell small-6 hide-for-large hide-for-medium">
+                <div data-responsive-toggle="top-menu" data-hide-for="medium" class="menu-icon-container"
+                     style="display: none;">
+                    <button class="menu-icon float-right" type="button" data-toggle="top-menu"
+                            style="color: #0a0a0a"></button>
+                </div>
+            </div>
+
+            <div class="menu cell large-6 medium-9 small-12" id="top-menu">
+                <ul>
+                    <li><a href="/">Наше меню</a></li>
+                    <li><a href="/contact">Заказать столик</a></li>
+                    <li><a href="/about">О нас</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+        <div class="grid-x grid-padding-x">
+            <div class="cell large-8 small-12">
+
+                {% block body %} {% endblock %}
+
+            </div>
+
+            <div class="cell large-4 small-12">
+                <div class="gallery">
+                    <div class="grid-x grid-padding-x">
+                        {% for image in album %}
+                            {% thumbnail image.foto_img '300x300' crop='center' as img_thumb %}
+                                <div class="cell large-6 small-6">
+                                    <a href="{{ image.foto_img.url }}" class="gallery-item"><img
+                                            src="{{ img_thumb.url }}" alt="
+                                            {% if image.foto_img.foto_name %}{{ foto_name }}
+                                            {% else %}Интерьер ресторана Профессоре{% endif %}"></a>
+                                </div>
+                            {% endthumbnail %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer row expanded">
+    <div class="container">
+        <div class="grid-x grid-padding-x">
+
+            <div class="cell large-6 small-12">
+                <a href="/about"><span><i class="fas fa-home"></i>{{ preferences.PrPreferences.address }}</span></a>
+            </div>
+
+            <div class="cell large-3 small-12">
+                <span><i class="fas fa-phone"></i>‎<a
+                        href="tel:{{ tel1plain }}">{{ preferences.PrPreferences.tel1 }}</a>, <a
+                        href="tel:{{ tel2plain }}">{{ preferences.PrPreferences.tel2 }}</a></span>
+            </div>
+
+            <div class="cell large-2 small-12">
+                <div class="social">
+                    {% if preferences.PrPreferences.fb_link %}
+                        <a href="{{ preferences.PrPreferences.fb_link }}" target="_blank" rel="noopener"><i
+                                class="fab fa-facebook"></i></a>
+                    {% endif %}
+                    {% if preferences.PrPreferences.ig_link %}
+                        <a href="{{ preferences.PrPreferences.ig_link }}" target="_blank" rel="noopener"><i
+                                class="fab fa-instagram"></i></a>
+                    {% endif %}
+                    {% if preferences.PrPreferences.fs_link %}
+                        <a href="{{ preferences.PrPreferences.fs_link }}" target="_blank" rel="noopener"><i
+                                class="fab fa-foursquare"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script async>
+    $(document).foundation();
+
+    $('.slick').slick({
+        autoplay: true,
+        autoplaySpeed: {{ preferences.PrPreferences.slides_speed }},
+        fade: true,
+        arrows: false,
+        fade: true,
+        cssEase: 'linear'
+    });
+
+    $('.gallery-item').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+</script>
+
+
+<!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(52219447, "init", { id:52219447, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/52219447" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+
+</body>
+</html>

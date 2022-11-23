@@ -1,0 +1,51 @@
+{% extends "main/index.html" %}
+
+{% block title %}Профессоре – кофе, паста, крафт-бар{% endblock %}
+{% block description %}{{ preferences.PrPreferences.index_meta_desc }}{% endblock %}
+
+{% block body %}
+
+    <div class="mainframe">
+        <h1>Наше меню</h1>
+        <table>
+            <tbody>
+            {% for category in category_list %}
+                <tr>
+                    <td colspan="2"><h2>{{ category.category_name }}</h2></td>
+                </tr>
+                {% if category.category_subcategories.exists %}
+                    {% for subcategory in category.category_subcategories.all %}
+                        <tr>
+                            <td colspan="2"><h3>{{ subcategory.subcategory_name }}</h3></td>
+                        </tr>
+
+                        {% for dish in subcategory.subcategory_dishes.all %}
+                            <tr>
+                                <td>{{ dish.dish_name }}
+                                    {% if dish.dish_weight %} –
+                                        {{ dish.dish_weight }}{% if dish.dish_type == 'd' %}&nbsp;г{% else %}&nbsp;мл{% endif %}</td>
+                                    {% endif %}
+                                <td>{{ dish.dish_price }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    {% endfor %}
+                {% else %}
+
+                        {% for dish in category.category_dishes.all %}
+                            <tr>
+                                <td>{{ dish.dish_name }}
+                                    {% if dish.dish_weight %} –
+                                        {{ dish.dish_weight }}{% if dish.dish_type == 'd' %}&nbsp;г{% else %}&nbsp;мл{% endif %}</td>
+                                    {% endif %}
+                                <td>{{ dish.dish_price }}</td>
+                            </tr>
+                        {% endfor %}
+
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

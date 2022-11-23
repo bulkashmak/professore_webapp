@@ -1,0 +1,212 @@
+@font-face {
+    font-family: 'Istok Web';
+    font-weight: 400;
+    font-display: swap;
+    src: local('Istok Web'), url(https://fonts.gstatic.com/s/istokweb/v12/3qTvojGmgSyUukBzKslpC2t_xkI.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'Istok Web';
+    font-weight: 700;
+    font-display: swap;
+    src: local('Istok Web Bold'), url(https://fonts.gstatic.com/s/istokweb/v12/3qTqojGmgSyUukBzKslhvU5q9GMVUBc.woff2) format('woff2');
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a {
+    font-family: 'Istok Web', Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    display: block;
+}
+
+.container {
+    max-width: 1270px;
+    margin: 0 auto;
+}
+
+i {
+    padding-right: 0.4em;
+}
+
+.header {
+    background-color: rgba(33, 33, 33, 1);
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.footer {
+    background-color: rgba(33, 33, 33, 1);
+    padding: 7px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* choose any height */
+    z-index: 100;
+}
+
+.footer span {
+    margin: 15px 0;
+    display: inline-block;
+}
+
+.footer * {
+    color: #FFFFFF;
+}
+
+.main {
+    z-index: 100;
+    position: relative;
+    margin-top: 110px;
+    margin-bottom: 110px;
+    overflow: hidden;
+}
+
+.mainframe, .gallery {
+    padding: 25px;
+    background: rgba(33, 33, 33, 0.8);
+    color: #FFFFFF;
+}
+
+.mainframe a {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.gallery {
+    padding: 25px 25px 0px 25px;
+}
+
+.contacts_cont label {
+    color: #FFFFFF;
+}
+
+.social {
+    font-size: 1.6em;
+    margin: 8px 0px;
+}
+
+tr {
+    background: none !important;
+}
+
+td {
+    vertical-align: top;
+}
+
+tbody {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+}
+
+.menu ul li {
+    float: left;
+}
+
+.menu ul li a {
+    display: block;
+    color: #FFFFFF;
+    padding: 15px 30px;
+}
+
+.menu-icon {
+    margin-top: 4px;
+    margin-right: 4px;
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    width: 2560px;
+    height: 1440px;
+}
+
+.background-cover, .slide {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background-image: url(http://placehold.it/1440x750&text=1);*/
+}
+
+.white {
+    color: #FFFFFF;
+}
+
+.gallery img {
+    padding-bottom: 30px;
+}
+
+.slide {
+    height: 100vh;
+}
+
+.callout {
+    margin: 0;
+    padding: 5px 10px;
+    color: #FFFFFF;
+    background: transparent;
+}
+
+.success {
+    background: #238038;
+    padding: 5px 10px;
+}
+
+.error, .alert {
+    background: #ff543c;
+!important;
+    padding: 5px 10px;
+!important;
+}
+
+.contacts_cont button {
+    background-color: transparent !important;
+    border: 1px solid #FFFFFF !important;
+}
+
+.map {
+    padding-top: 30px;
+    height: 550px;
+}
+
+.map a {
+    color: black;
+}
+
+@media only screen and (max-width: 40em) {
+    .footer {
+        position: relative;
+        height: auto;
+    }
+
+    .food_menu {
+        font-size: 0.8em;
+    }
+
+    .mainframe, .gallery {
+        padding: 10px;
+    }
+
+    .main {
+        margin-bottom: 10px;
+        margin-top: 100px;
+    }
+
+    .menu-icon {
+        width: 40px;
+        height: 32px;
+    }
+
+    .menu-icon::after {
+        zoom: 1.6;
+    }
+}
